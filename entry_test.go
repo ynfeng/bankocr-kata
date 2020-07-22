@@ -73,7 +73,6 @@ func TestGetNumber3(t *testing.T) {
 	assert.Equal(t, "3", entry.GetNumber(3))
 }
 
-
 func TestGetNumber4(t *testing.T) {
 	data := [3][27]byte{
 		{' ', ' ', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', ' ', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ',},
@@ -138,4 +137,15 @@ func TestGetNumber9(t *testing.T) {
 	entry := NewEntry(data)
 
 	assert.Equal(t, "8", entry.GetNumber(8))
+}
+
+func TestGetNumber0(t *testing.T) {
+	data := [3][27]byte{
+		{' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ',},
+		{'|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|',},
+		{'|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|',},
+	}
+	entry := NewEntry(data)
+
+	assert.Equal(t, "0", entry.GetNumber(3))
 }
