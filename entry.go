@@ -41,6 +41,15 @@ func (entry *Entry) GetNumber(pos int) string {
 	return ""
 }
 
+func (entry *Entry) toString() string {
+	result := ""
+	for i := 1; i <= 9; i++ {
+		number := entry.GetNumber(i)
+		result += number
+	}
+	return result
+}
+
 func NewEntry(data [3][27]byte) Entry {
 	return Entry{data: data}
 }
