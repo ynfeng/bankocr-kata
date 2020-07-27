@@ -25,10 +25,7 @@ func (reader FileDocumentReader) ReadEntries() ([]Entry, error) {
 		if len(readBytes) == 0 {
 			continue
 		}
-		var lineBytes [27]byte
-		for i := 0; i < 27; i++ {
-			lineBytes[i] = readBytes[i]
-		}
+		lineBytes := copyLineData(readBytes)
 		entry.appendLineData(lineBytes)
 		if entry.isDataComplete() {
 			result = append(result, entry)
@@ -36,6 +33,14 @@ func (reader FileDocumentReader) ReadEntries() ([]Entry, error) {
 		}
 	}
 	return result, nil
+}
+
+func copyLineData(readBytes []byte) [27]byte {
+	var lineBytes [27]byte
+	for i := 0; i < 27; i++ {
+		lineBytes[i] = readBytes[i]
+	}
+	return lineBytes
 }
 
 func NewFileDocumentReader(filePath string) FileDocumentReader {
