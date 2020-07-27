@@ -149,3 +149,19 @@ func TestGetNumber0(t *testing.T) {
 
 	assert.Equal(t, "0", entry.GetNumber(3))
 }
+
+func TestAppendLineData(t *testing.T) {
+	lineData1 := [27]byte {' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ',}
+	lineData2 := [27]byte {'|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|', '|', ' ', '|',}
+	lineData3 := [27]byte {'|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', '|',}
+
+	entry := NewEmptyEntry()
+	
+	entry.appendLineData(lineData1)
+	entry.appendLineData(lineData2)
+	entry.appendLineData(lineData3)
+
+
+	assert.Equal(t, "0", entry.GetNumber(3))
+	assert.Equal(t, true, entry.isDataComplete())
+}

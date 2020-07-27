@@ -1,7 +1,9 @@
 package bankocr
 
 import (
-	"io/ioutil"
+	"bufio"
+	"io"
+	"os"
 )
 
 type FileDocumentReader struct {
@@ -10,27 +12,28 @@ type FileDocumentReader struct {
 
 func (reader FileDocumentReader) ReadEntries() ([]Entry, error) {
 	result := make([]Entry, 0)
+	fi, _ := os.Open(reader.filePath)
+	defer fi.Close()
 
-	bytes, _ := ioutil.ReadFile(reader.filePath)
-	totalBytes := len(bytes)
-	readIdx := 0
-	lineNo := 0
-	for readIdx < totalBytes {
-		var readBytes [3][27]byte
-		for i := 0; i < 3; i++ {
-			col := 0
-			for {
-				readChar := bytes[28*i+col+(lineNo*84)]
-				if readChar == 0xa {
-					break
-				}
-				readBytes[i][col] = readChar
-				col++
-			}
+	br := bufio.NewReader(fi)
+	entry := NewEmptyEntry()
+	for {
+		readBytes, _, c := br.ReadLine()
+		if c == io.EOF {
+			break
 		}
-		result = append(result, NewEntry(readBytes))
-		readIdx += 85
-		lineNo++
+		if len(readBytes) == 0 {
+			continue
+		}
+		var lineBytes [27]byte
+		for i := 0; i < 27; i++ {
+			lineBytes[i] = readBytes[i]
+		}
+		entry.appendLineData(lineBytes)
+		if entry.isDataComplete() {
+			result = append(result, entry)
+			entry = NewEmptyEntry()
+		}
 	}
 	return result, nil
 }

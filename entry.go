@@ -5,7 +5,8 @@ import (
 )
 
 type Entry struct {
-	data [3][27]byte
+	data       [3][27]byte
+	lineDataNo int
 }
 
 func (entry *Entry) getNumberData(pos int) [3][3]byte {
@@ -50,6 +51,23 @@ func (entry *Entry) toString() string {
 	return result
 }
 
+func (entry *Entry) appendLineData(lineData [27]byte) {
+	entry.data[entry.lineDataNo] = lineData
+	entry.lineDataNo++
+}
+
+func (entry *Entry) isDataComplete() bool {
+	if entry.lineDataNo == 3 {
+		return true
+	}
+	return false
+}
+
 func NewEntry(data [3][27]byte) Entry {
-	return Entry{data: data}
+	return Entry{data: data, lineDataNo: 3}
+}
+
+func NewEmptyEntry() Entry {
+	var lineData [3][27]byte
+	return Entry{data: lineData}
 }
