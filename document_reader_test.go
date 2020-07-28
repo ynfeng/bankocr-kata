@@ -149,3 +149,11 @@ func TestReadMultipleEntriesInOneDocument(t *testing.T) {
 	assert.Equal(t, "123456789", entries[10].toString())
 	assert.Equal(t, "000000051", entries[11].toString())
 }
+
+func TestReadNotExistsFile(t *testing.T) {
+	reader := NewFileDocumentReader("./notExists")
+
+	_, err := reader.ReadEntries()
+
+	assert.NotEqual(t, nil, err)
+}

@@ -12,7 +12,10 @@ type FileDocumentReader struct {
 
 func (reader FileDocumentReader) ReadEntries() ([]Entry, error) {
 	result := make([]Entry, 0)
-	fi, _ := os.Open(reader.filePath)
+	fi, err := os.Open(reader.filePath)
+	if err != nil {
+		return nil, err
+	}
 	defer fi.Close()
 
 	br := bufio.NewReader(fi)
