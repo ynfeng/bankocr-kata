@@ -63,6 +63,16 @@ func (entry *Entry) isDataComplete() bool {
 	return false
 }
 
+func (entry *Entry) isValid() bool {
+	accountNo := entry.toString()
+	checkSum := 0
+	for i := 0; i < len(accountNo); i++ {
+		num, _ := strconv.Atoi(accountNo[i : i+1])
+		checkSum += num * (9 - i)
+	}
+	return checkSum%11 == 0
+}
+
 func NewEntry(data [3][27]byte) Entry {
 	return Entry{data: data, lineDataNo: 3}
 }
