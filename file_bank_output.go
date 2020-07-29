@@ -2,6 +2,7 @@ package bankocr
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 )
 
@@ -13,7 +14,7 @@ func (output FileBankOutput) appendLine(accountNo string) error {
 	fi, _ := os.OpenFile(output.outputFile, os.O_WRONLY|os.O_APPEND, 0755)
 	defer fi.Close()
 	wr := bufio.NewWriter(fi)
-	wr.WriteString(accountNo+"\n")
+	fmt.Fprintln(wr, accountNo)
 	wr.Flush()
 	return nil
 }
