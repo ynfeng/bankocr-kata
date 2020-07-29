@@ -2,6 +2,7 @@ package bankocr
 
 import (
 	"strconv"
+	"strings"
 )
 
 type Entry struct {
@@ -39,7 +40,7 @@ func (entry *Entry) GetNumber(pos int) string {
 			return strconv.Itoa(n)
 		}
 	}
-	return ""
+	return "?"
 }
 
 func (entry *Entry) toString() string {
@@ -71,6 +72,11 @@ func (entry *Entry) isValid() bool {
 		checkSum += num * (9 - i)
 	}
 	return checkSum%11 == 0
+}
+
+func (entry *Entry) isIllegal() bool {
+	accountNo := entry.toString()
+	return strings.Contains(accountNo, "?")
 }
 
 func NewEntry(data [3][27]byte) Entry {
