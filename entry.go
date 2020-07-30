@@ -66,12 +66,17 @@ func (entry *Entry) isDataComplete() bool {
 
 func (entry *Entry) isValid() bool {
 	accountNo := entry.toString()
+	checkSum := entry.calcCheckSum(accountNo)
+	return checkSum%11 == 0
+}
+
+func (entry *Entry) calcCheckSum(accountNo string) int {
 	checkSum := 0
 	for i := 0; i < len(accountNo); i++ {
 		num, _ := strconv.Atoi(accountNo[i : i+1])
 		checkSum += num * (9 - i)
 	}
-	return checkSum%11 == 0
+	return checkSum
 }
 
 func (entry *Entry) isIllegal() bool {
