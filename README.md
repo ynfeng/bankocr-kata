@@ -27,10 +27,10 @@ https://codingdojo.org/kata/BankOCR/
 ## story 3
 描述： 将识别出来的账户写入到文件中
 
-	* 难以识别的字符识别成问号
-	* entry提供判断账户是否识别正确的方法
-	* 重构代码，建立BankOcr类
-	* 写入文件
+* 难以识别的字符识别成问号
+* entry提供判断账户是否识别正确的方法
+* 重构代码，建立BankOcr类
+* 写入文件
 	
 ## story 4
 
