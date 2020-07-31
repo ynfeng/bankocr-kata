@@ -34,6 +34,9 @@ https://codingdojo.org/kata/BankOCR/
 	
 ## story 4
 
+`太麻烦了，不做了 - -`
+
+
 * 对于ILL或ERR的帐号，进行AMB判断
 	* ERR的检验和如果与11相差等于1，判定为可能为AMB
 	* ERR的校验和如果与11相差大于1，判定为ERR
